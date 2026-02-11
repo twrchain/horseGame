@@ -1,0 +1,11 @@
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+*.iml
+.venv/
+horse_records.json
+bin/
+.buildozer/
+*.spec.bak
+.DS_Store
