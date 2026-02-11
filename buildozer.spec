@@ -49,6 +49,9 @@ version = 1.0
 #
 android.permissions =
 
+# (bool) Accept Android SDK licenses automatically
+android.accept_sdk_license = True
+
 # (str) Supported orientation (one of landscape, portrait, all)
 #
 orientation = landscape
