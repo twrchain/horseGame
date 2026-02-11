@@ -1,4 +1,4 @@
-﻿[app]
+[app]
 
 # (str) Title of your application
 # It will appear on Android launcher
