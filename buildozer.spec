@@ -31,7 +31,7 @@ source.include_exts = py,png,mp3,MP3
 
 # (list) Application requirements
 #
-requirements = python3,kivy
+requirements = python3,kivy,libffi==3.4.4,cython==0.29.33
 
 # (str) Application versioning (internal)
 #
@@ -62,7 +62,7 @@ fullscreen = 1
 
 # (list) Android architectures to build for
 #
-android.archs = armeabi-v7a,arm64-v8a
+android.archs = arm64-v8a
 
 # (int) Target Android API
 #
@@ -70,7 +70,7 @@ android.api = 33
 
 # (int) Minimum API your APK will support
 #
-android.minapi = 23
+android.minapi = 24
 
 # (bool) Enable AndroidX
 #
