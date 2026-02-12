@@ -1,7 +1,7 @@
 diff --git a/jnius/jnius_utils.pxi b/jnius/jnius_utils.pxi
 --- a/jnius/jnius_utils.pxi
 +++ b/jnius/jnius_utils.pxi
-@@ -320,9 +320,7 @@
+@@ -320,5 +320,4 @@
          if r == 'S' or r == 'I':
 -            if isinstance(arg, int) or (
 -                    (isinstance(arg, long) and arg < 2147483648)):
