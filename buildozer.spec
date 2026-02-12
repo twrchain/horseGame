@@ -76,6 +76,8 @@ android.minapi = 24
 #
 android.enable_androidx = True
 
+p4a.local_recipes = ./p4a_recipes
+
 [buildozer]
 
 # (int) Log level (0 = error, 1 = info, 2 = debug)
