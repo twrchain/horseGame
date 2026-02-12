@@ -13,11 +13,8 @@ class PyjniusRecipe(BasePyjniusRecipe):
             return
         with open(target, "r", encoding="utf-8") as f:
             content = f.read()
-        content = content.replace(
-            "if isinstance(arg, int) or (\n"
-            "                    (isinstance(arg, long) and arg < 2147483648)):",
-            "if isinstance(arg, int):",
-        )
+        # pyjnius uses Python 2's `long`; replace checks for Python 3 builds.
+        content = content.replace("isinstance(arg, long)", "False")
         with open(target, "w", encoding="utf-8", newline="\n") as f:
             f.write(content)
 
