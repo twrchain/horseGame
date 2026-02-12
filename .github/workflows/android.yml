@@ -18,7 +18,14 @@ jobs:
       - name: Install system deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y git zip unzip openjdk-17-jdk
+          sudo apt-get install -y \
+            git zip unzip openjdk-17-jdk \
+            build-essential pkg-config \
+            python3-dev \
+            libffi-dev libssl-dev libsqlite3-dev \
+            zlib1g-dev libbz2-dev liblzma-dev \
+            libncurses5-dev libncursesw5-dev libgdbm-dev libreadline-dev \
+            libjpeg-dev libpng-dev libfreetype6-dev
 
       - name: Install Buildozer
         run: |
@@ -27,7 +34,17 @@ jobs:
 
       - name: Build APK
         run: |
-          buildozer -v android debug
+          set -o pipefail
+          buildozer -v android debug 2>&1 | tee buildozer.log
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: HorseGame-build-logs
+          path: |
+            buildozer.log
+            .buildozer/**/build.log
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
