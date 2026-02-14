@@ -895,17 +895,34 @@ class HorseGameWidget(Widget):
 
 
 class HorseGameApp(App):
+    def _resolve_ui_font(self):
+        candidates = [
+            os.path.join(os.path.dirname(__file__), "fonts", "NotoSansSC-Regular.ttf"),
+            "/system/fonts/NotoSansCJK-Regular.ttc",
+            "/system/fonts/NotoSansSC-Regular.otf",
+            "/system/fonts/NotoSansCJKsc-Regular.otf",
+            "/system/fonts/DroidSansFallback.ttf",
+            "C:\\Windows\\Fonts\\msyh.ttc",
+            "C:\\Windows\\Fonts\\simsun.ttc",
+        ]
+        for path in candidates:
+            if os.path.exists(path):
+                return path
+        return None
+
     def build(self):
         layout = FloatLayout()
         self.game = HorseGameWidget()
         layout.add_widget(self.game)
+        self.ui_font = self._resolve_ui_font()
+        ui_kwargs = {"font_name": self.ui_font} if self.ui_font else {}
 
-        self.stats_label = Label(text="", size_hint=(1, None), height=40, pos_hint={"x": 0, "top": 1})
-        self.best_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.95})
-        self.controls_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.9})
-        self.effects_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.85})
-        self.status_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.8})
-        self.achievement_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.75})
+        self.stats_label = Label(text="", size_hint=(1, None), height=40, pos_hint={"x": 0, "top": 1}, **ui_kwargs)
+        self.best_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.95}, **ui_kwargs)
+        self.controls_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.9}, **ui_kwargs)
+        self.effects_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.85}, **ui_kwargs)
+        self.status_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.8}, **ui_kwargs)
+        self.achievement_label = Label(text="", size_hint=(1, None), height=30, pos_hint={"x": 0, "top": 0.75}, **ui_kwargs)
 
         for label in [
             self.stats_label,
@@ -917,18 +934,18 @@ class HorseGameApp(App):
         ]:
             layout.add_widget(label)
 
-        self.start_label = Label(text="准备就绪再出发", size_hint=(1, None), height=40, pos_hint={"x": 0, "center_y": 0.6})
-        self.countdown_label = Label(text="", size_hint=(1, None), height=60, pos_hint={"x": 0, "center_y": 0.5})
-        self.start_button = Button(text="点击开始", size_hint=(None, None), size=(180, 50), pos_hint={"center_x": 0.5, "center_y": 0.4})
+        self.start_label = Label(text="准备就绪再出发", size_hint=(1, None), height=40, pos_hint={"x": 0, "center_y": 0.6}, **ui_kwargs)
+        self.countdown_label = Label(text="", size_hint=(1, None), height=60, pos_hint={"x": 0, "center_y": 0.5}, **ui_kwargs)
+        self.start_button = Button(text="点击开始", size_hint=(None, None), size=(180, 50), pos_hint={"center_x": 0.5, "center_y": 0.4}, **ui_kwargs)
         self.start_button.bind(on_press=lambda *_: self.game.start_countdown())
 
-        self.pause_button = Button(text="暂停", size_hint=(None, None), size=(120, 44), pos_hint={"x": 0.02, "top": 0.98})
+        self.pause_button = Button(text="暂停", size_hint=(None, None), size=(120, 44), pos_hint={"x": 0.02, "top": 0.98}, **ui_kwargs)
         self.pause_button.bind(on_press=lambda *_: self.game.toggle_pause())
-        self.mode_button = Button(text="模式", size_hint=(None, None), size=(120, 44), pos_hint={"right": 0.98, "top": 0.98})
+        self.mode_button = Button(text="模式", size_hint=(None, None), size=(120, 44), pos_hint={"right": 0.98, "top": 0.98}, **ui_kwargs)
         self.mode_button.bind(on_press=lambda *_: self.game.cycle_mode())
-        self.jump_button = Button(text="跳", size_hint=(None, None), size=(120, 80), pos_hint={"x": 0.04, "y": 0.04})
+        self.jump_button = Button(text="跳", size_hint=(None, None), size=(120, 80), pos_hint={"x": 0.04, "y": 0.04}, **ui_kwargs)
         self.jump_button.bind(on_press=lambda *_: self.game.handle_jump())
-        self.slide_button = Button(text="滑", size_hint=(None, None), size=(120, 80), pos_hint={"right": 0.96, "y": 0.04})
+        self.slide_button = Button(text="滑", size_hint=(None, None), size=(120, 80), pos_hint={"right": 0.96, "y": 0.04}, **ui_kwargs)
         self.slide_button.bind(on_press=lambda *_: self.game.handle_slide())
 
         for widget in [self.start_label, self.countdown_label, self.start_button, self.pause_button, self.mode_button, self.jump_button, self.slide_button]:
